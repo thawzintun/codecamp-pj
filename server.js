@@ -38,11 +38,11 @@ app.get("/", function (req, res) {
 });
 
 app.get("/json", function (req, res) {
+    var helloMsg = "Hello json";
     if (process.env.MESSAGE_STYLE === "uppercase") {
-        res.json({ message: "HELLO JSON" });
-    } else {
-        res.json({ message: "Hello json" });
+        helloMsg = "HELLO JSON";
     }
+    res.json({ message: helloMsg });
 });
 
 const port = process.env.PORT || 3000;
