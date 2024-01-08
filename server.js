@@ -37,6 +37,19 @@ app.use("/json", function (req, res, next) {
     next();
 });
 
+app.get(
+    "/now",
+    (req, res, next) => {
+        req.time = new Date().toString();
+        next();
+    },
+    (req, res) => {
+        res.send({
+            time: req.time,
+        });
+    }
+);
+
 const middleware = (req, res, next) => {
     req.time = new Date().toString();
     next();
