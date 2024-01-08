@@ -36,7 +36,11 @@ app.use("/json", function (req, res, next) {
     console.log(`${req.method} ${req.path} - ${req.ip}`);
     next();
 });
-var delayInMilliseconds = 1000; //1 second
+
+app.get("/", function (req, res) {
+    res.sendFile(__dirname + "/views/index.html");
+});
+
 app.get(
     "/now",
     (req, res, next) => {
@@ -44,17 +48,9 @@ app.get(
         next();
     },
     (req, res) => {
-        setTimeout(function () {
-            res.send({
-                time: req.time,
-            });
-        }, delayInMilliseconds);
+        res.json({ time: req.time });
     }
 );
-
-app.get("/", function (req, res) {
-    res.sendFile(__dirname + "/views/index.html");
-});
 app.get("/json", function (req, res) {
     var helloMsg = "Hello json";
     if (process.env.MESSAGE_STYLE === "uppercase") {
