@@ -29,4 +29,11 @@ app.get("/json", function (req, res) {
     res.json({ message: helloMsg });
 });
 
+app.get("/:word/echo", (req, res) => {
+    const { word } = req.params;
+    res.json({
+        echo: word,
+    });
+});
+
 module.exports = app;
