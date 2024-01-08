@@ -37,7 +37,7 @@ app.use("/json", function (req, res, next) {
     next();
 });
 
-app.get(
+app.use(
     "/now",
     (req, res, next) => {
         req.time = new Date().toString();
@@ -49,17 +49,6 @@ app.get(
         });
     }
 );
-
-const middleware = (req, res, next) => {
-    req.time = new Date().toString();
-    next();
-};
-
-app.get("/now", middleware, (req, res) => {
-    res.send({
-        time: req.time,
-    });
-});
 
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/views/index.html");
