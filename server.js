@@ -37,6 +37,17 @@ app.use("/json", function (req, res, next) {
     next();
 });
 
+const middleware = (req, res, next) => {
+    req.time = new Date().toString();
+    next();
+};
+
+app.get("/now", middleware, (req, res) => {
+    res.send({
+        time: req.time,
+    });
+});
+
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/views/index.html");
 });
@@ -47,16 +58,6 @@ app.get("/json", function (req, res) {
     }
     res.json({ message: helloMsg });
 });
-app.get(
-    "/now",
-    function (req, res, next) {
-        req.time = new Date().toString();
-        next();
-    },
-    function (req, res) {
-        res.json({ time: req.time });
-    }
-);
 
 const port = process.env.PORT || 3000;
 bGround.setupBackgroundApp(app, myApp, __dirname).listen(port, () => {
