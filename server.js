@@ -36,17 +36,19 @@ app.use("/json", function (req, res, next) {
     console.log(`${req.method} ${req.path} - ${req.ip}`);
     next();
 });
-
-app.use(
+var delayInMilliseconds = 1000; //1 second
+app.get(
     "/now",
     (req, res, next) => {
         req.time = new Date().toString();
         next();
     },
     (req, res) => {
-        res.send({
-            time: req.time,
-        });
+        setTimeout(function () {
+            res.send({
+                time: req.time,
+            });
+        }, delayInMilliseconds);
     }
 );
 
